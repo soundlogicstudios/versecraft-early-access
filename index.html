@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>VerseCraft Early Access</title>
+  <meta name="description" content="VerseCraft Early Access onboarding. Your Stories. Your Choices. Your RPG." />
+  <style>
+    :root{
+      --bg:#070A12; --text:rgba(255,255,255,.92); --muted:rgba(255,255,255,.68);
+      --line:rgba(255,255,255,.12); --warn:#ffb86b; --ok:#9dffb0; --danger:#ff6b6b;
+      --radius:18px; --max:760px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; min-height:100vh; padding:18px;
+      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      background:
+        radial-gradient(1200px 700px at 50% 10%, rgba(139,211,255,.10), transparent 60%),
+        radial-gradient(900px 600px at 70% 60%, rgba(255,184,107,.10), transparent 55%),
+        var(--bg);
+      color:var(--text);
+    }
+    .wrap{max-width:var(--max); margin:0 auto; padding-bottom:40px}
+    .hero{
+      padding:18px 16px; border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      border-radius:var(--radius); position:relative; overflow:hidden;
+    }
+    .brand{display:flex; align-items:center; gap:12px}
+    .mark{
+      width:44px; height:44px; border-radius:12px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(139,211,255,.9), rgba(139,211,255,.1) 60%),
+        radial-gradient(circle at 70% 80%, rgba(255,184,107,.7), rgba(255,184,107,.05) 55%);
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    h1{margin:0; font-size:22px; letter-spacing:.6px}
+    .creed{margin-top:8px; color:var(--muted); font-weight:850; letter-spacing:.7px}
+    .lead{margin-top:12px; line-height:1.5}
+    .pillrow{margin-top:12px; display:flex; flex-wrap:wrap; gap:8px}
+    .pill{
+      padding:8px 10px; border:1px solid var(--line); border-radius:999px;
+      color:var(--muted); background:rgba(0,0,0,.18); font-size:13px;
+    }
+    .card{
+      margin-top:14px; padding:16px; border:1px solid var(--line);
+      background:rgba(255,255,255,.05); border-radius:var(--radius);
+    }
+    .topbar{display:flex; align-items:center; justify-content:space-between; gap:12px}
+    .progress{
+      flex:1; height:10px; border-radius:999px; overflow:hidden;
+      background:rgba(255,255,255,.08); border:1px solid var(--line);
+    }
+    .progress>div{height:100%; width:0%; background:linear-gradient(90deg, rgba(139,211,255,.9), rgba(255,184,107,.9))}
+    .step{color:var(--muted); font-size:13px; white-space:nowrap}
+    .title{font-size:18px; margin:12px 0 6px}
+    .desc{color:var(--muted); margin:0 0 12px; line-height:1.5}
+    label{display:block; margin:10px 0 6px; color:var(--muted); font-size:13px}
+    input[type="email"], textarea{
+      width:100%; padding:12px; border-radius:12px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); color:var(--text); outline:none;
+    }
+    textarea{min-height:110px; resize:vertical}
+    .grid{display:grid; gap:10px}
+    .grid2{grid-template-columns:1fr 1fr}
+    @media (max-width:640px){.grid2{grid-template-columns:1fr}}
+    .choice{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:12px; border-radius:14px; border:1px solid var(--line);
+      background:rgba(0,0,0,.18); cursor:pointer; user-select:none;
+    }
+    .choice input{margin-top:2px}
+    .choice b{display:block}
+    .choice span{display:block; color:var(--muted); font-size:13px; margin-top:2px}
+    .btnrow{display:flex; gap:10px; margin-top:14px; flex-wrap:wrap}
+    button{
+      border:1px solid var(--line); background:rgba(255,255,255,.07); color:var(--text);
+      padding:12px 14px; border-radius:14px; font-weight:900; letter-spacing:.2px; cursor:pointer;
+    }
+    button.primary{
+      background:linear-gradient(90deg, rgba(139,211,255,.22), rgba(255,184,107,.20));
+      border-color:rgba(255,255,255,.22);
+    }
+    button.danger{border-color:rgba(255,107,107,.35)}
+    button:disabled{opacity:.55; cursor:not-allowed}
+    .msg{
+      margin-top:10px; padding:10px 12px; border-radius:14px; border:1px solid var(--line);
+      background:rgba(0,0,0,.18); color:var(--muted);
+    }
+    .msg.ok{border-color:rgba(157,255,176,.35); color:rgba(157,255,176,.95)}
+    .msg.warn{border-color:rgba(255,184,107,.35); color:rgba(255,184,107,.95)}
+    .msg.bad{border-color:rgba(255,107,107,.35); color:rgba(255,107,107,.95)}
+    .fineprint{margin-top:10px; font-size:12px; color:var(--muted); line-height:1.45}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+    .hide{display:none !important}
+    iframe#submitFrame{width:0; height:0; border:0; position:absolute; left:-9999px; top:-9999px;}
+    .hr{height:1px;background:var(--line);margin:12px 0;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div class="brand">
+        <div class="mark" aria-hidden="true"></div>
+        <div>
+          <h1>VerseCraft Early Access</h1>
+          <div class="creed">YOUR STORIES. YOUR CHOICES. YOUR RPG.</div>
+        </div>
+      </div>
+      <p class="lead">Experience powerful interactive stories — then create worlds of your own.</p>
+      <div class="pillrow">
+        <div class="pill">Code Blue</div>
+        <div class="pill">World Of Lorecraft</div>
+        <div class="pill">Wastelands</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="topbar">
+        <div class="progress" aria-label="progress"><div id="bar"></div></div>
+        <div class="step" id="stepLabel">Step 1 / 8</div>
+      </div>
+
+      <div id="screen"></div>
+
+      <div class="btnrow">
+        <button id="backBtn">Back</button>
+        <button class="primary" id="nextBtn">Next</button>
+        <button class="danger" id="resetBtn" title="Clear saved draft">Reset Draft</button>
+      </div>
+
+      <div id="msg" class="msg hide"></div>
+
+      <div class="fineprint">
+        By joining, you agree to be contacted about VerseCraft Early Access. We only use your email for access + updates.
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden iframe + hidden form used for Google Forms submission -->
+  <iframe id="submitFrame" name="submitFrame"></iframe>
+
+  <!--
+    ============================================================
+    ENTRY ID PATCH (YOU MUST EDIT THIS SECTION)
+    ============================================================
+    Replace every entry.########## below with the REAL entry IDs
+    from your Google Form's prefilled link.
+
+    Mapping:
+      f_email         -> Email
+      f_consent       -> Consent To Contact
+      f_role          -> Role
+      f_genres        -> Favorite Genres
+      f_intensity     -> Preferred Intensity
+      f_session       -> Preferred Session Length
+      f_device        -> Primary Device
+      f_flagship_first-> Which Story First
+      f_feedback      -> Feedback
+      f_ua            -> User Agent
+      f_submitted_at  -> Submitted At
+  -->
+  <form id="gform" method="POST" target="submitFrame" class="hide">
+    <input type="hidden" name="entry.1111111111" id="f_email" />
+    <input type="hidden" name="entry.2222222222" id="f_consent" />
+    <input type="hidden" name="entry.3333333333" id="f_role" />
+    <input type="hidden" name="entry.4444444444" id="f_genres" />
+    <input type="hidden" name="entry.5555555555" id="f_intensity" />
+    <input type="hidden" name="entry.6666666666" id="f_session" />
+    <input type="hidden" name="entry.7777777777" id="f_device" />
+    <input type="hidden" name="entry.8888888888" id="f_flagship_first" />
+    <input type="hidden" name="entry.9999999999" id="f_feedback" />
+    <input type="hidden" name="entry.1010101010" id="f_ua" />
+    <input type="hidden" name="entry.1212121212" id="f_submitted_at" />
+  </form>
+
+  <script>
+    // =========================================================
+    // GOOGLE FORM ACTION URL (ALREADY SET FOR YOU)
+    // =========================================================
+    const GOOGLE_FORM_ACTION_URL =
+      "https://docs.google.com/forms/d/e/1FAIpQLSfFy61PYuFbLbt13ShNA6ujeYNYwLdC0khnqDXd0T_e-cKtIA/formResponse";
+
+    const DRAFT_KEY = "versecraft_alpha_draft_v1";
+
+    const state = loadDraft() || {
+      email: "",
+      consent: false,
+      role: "",
+      genres: [],
+      intensity: "",
+      session: "",
+      device: "",
+      flagship_first: "",
+      feedback: "",
+      createdAt: Date.now(),
+      source: "github_pages_alpha_v1"
+    };
+
+    let step = 0;
+
+    const steps = [
+      renderWelcome,
+      renderEmailConsent,
+      renderRole,
+      renderTaste,
+      renderDevice,
+      renderFlagship,
+      renderFreeform,
+      renderSubmit
+    ];
+
+    const $ = (id) => document.getElementById(id);
+
+    function showMsg(kind, text) {
+      const el = $("msg");
+      el.className = "msg " + (kind || "");
+      el.textContent = text || "";
+      el.classList.toggle("hide", !text);
+    }
+
+    function saveDraft() { try { localStorage.setItem(DRAFT_KEY, JSON.stringify(state)); } catch (_) {} }
+    function loadDraft() { try { const raw = localStorage.getItem(DRAFT_KEY); return raw ? JSON.parse(raw) : null; } catch (_) { return null; } }
+    function clearDraft(){ try { localStorage.removeItem(DRAFT_KEY); } catch (_) {} }
+
+    function setProgress() {
+      const total = steps.length;
+      const pct = Math.round((step / (total - 1)) * 100);
+      $("bar").style.width = pct + "%";
+      $("stepLabel").textContent = `Step ${Math.min(step + 1, total)} / ${total}`;
+    }
+
+    function mount(html) {
+      $("screen").innerHTML = html;
+      setProgress();
+      saveDraft();
+      wireStep();
+      $("backBtn").disabled = step === 0;
+      $("nextBtn").textContent = (step === steps.length - 1) ? "Done" : "Next";
+    }
+
+    function wireChoiceRadios(name, onChange) {
+      document.querySelectorAll(`input[name="${name}"]`).forEach((el) => {
+        el.addEventListener("change", () => onChange(el.value));
+      });
+    }
+
+    function wireChoiceChecks(name, onChange) {
+      document.querySelectorAll(`input[name="${name}"]`).forEach((el) => {
+        el.addEventListener("change", () => {
+          const values = Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(x => x.value);
+          onChange(values);
+        });
+      });
+    }
+
+    function validEmail(s) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(s || "").trim()); }
+
+    function renderWelcome() {
+      mount(`
+        <div class="title">EARLY ACCESS: HELP BUILD THE PLATFORM</div>
+        <p class="desc">
+          Quick onboarding for early players and creators. Answer a few questions so we can route you correctly
+          and build the right things first.
+        </p>
+        <div class="msg warn">Your progress saves on this device. You can come back later and finish.</div>
+        <div class="hr"></div>
+        <div class="desc" style="margin:0">
+          <b>Featuring early stories:</b> Code Blue • World Of Lorecraft • Wastelands
+        </div>
+      `);
+    }
+
+    function renderEmailConsent() {
+      mount(`
+        <div class="title">Your Email</div>
+        <p class="desc">We’ll use this to send Early Access details and updates.</p>
+
+        <label>Email (required)</label>
+        <input id="email" type="email" autocomplete="email" placeholder="you@example.com" value="${escapeHtml(state.email)}" />
+
+        <div style="margin-top:12px"></div>
+        <label class="choice" for="consent">
+          <input id="consent" type="checkbox" ${state.consent ? "checked" : ""} />
+          <div>
+            <b>I agree to be contacted about VerseCraft Early Access</b>
+            <span>We only use your email for access + updates.</span>
+          </div>
+        </label>
+      `);
+    }
+
+    function renderRole() {
+      mount(`
+        <div class="title">What’s Your Role?</div>
+        <p class="desc">Pick what best fits you — this helps us route you into the right feedback loops.</p>
+
+        <div class="grid">
+          ${radioCard("role","Reader / Player","Reader / Player","I want intense stories and replayable endings.", state.role)}
+          ${radioCard("role","Writer / Creator","Writer / Creator","I want to build worlds and branching stories.", state.role)}
+          ${radioCard("role","QA / Bug Hunter","QA / Bug Hunter","I enjoy breaking things and reporting issues.", state.role)}
+          ${radioCard("role","RPG Systems Nerd","RPG Systems Nerd","I care about items, flags, consequences, balance.", state.role)}
+          ${radioCard("role","UI/UX Feedback","UI/UX Feedback","I notice friction and want it smoother.", state.role)}
+          ${radioCard("role","I just want in","I just want in","Put me where I’m useful.", state.role)}
+        </div>
+      `);
+    }
+
+    function renderTaste() {
+      mount(`
+        <div class="title">Taste Profile</div>
+        <p class="desc">This helps us prioritize what to ship first.</p>
+
+        <label>Favorite genres (pick any)</label>
+        <div class="grid grid2">
+          ${checkCard("genres","Fantasy","Fantasy", state.genres)}
+          ${checkCard("genres","Sci-Fi","Sci-Fi", state.genres)}
+          ${checkCard("genres","Horror","Horror", state.genres)}
+          ${checkCard("genres","Survival","Survival", state.genres)}
+          ${checkCard("genres","Spy / Thriller","Spy / Thriller", state.genres)}
+          ${checkCard("genres","Mythic / Cosmic","Mythic / Cosmic", state.genres)}
+          ${checkCard("genres","Western","Western", state.genres)}
+          ${checkCard("genres","Medical Drama","Medical Drama", state.genres)}
+        </div>
+
+        <label>Preferred intensity</label>
+        <div class="grid grid2">
+          ${radioSimple("intensity","Cozy","Cozy", state.intensity)}
+          ${radioSimple("intensity","Medium","Medium", state.intensity)}
+          ${radioSimple("intensity","Dark","Dark", state.intensity)}
+          ${radioSimple("intensity","Brutal Consequences","Brutal Consequences", state.intensity)}
+        </div>
+
+        <label>Preferred session length</label>
+        <div class="grid grid2">
+          ${radioSimple("session","5–10 minutes","5–10 minutes", state.session)}
+          ${radioSimple("session","10–20 minutes","10–20 minutes", state.session)}
+          ${radioSimple("session","20–40 minutes","20–40 minutes", state.session)}
+          ${radioSimple("session","Binge","Binge", state.session)}
+        </div>
+      `);
+    }
+
+    function renderDevice() {
+      mount(`
+        <div class="title">Device</div>
+        <p class="desc">This helps us optimize performance and UI.</p>
+
+        <label>What device will you use most?</label>
+        <div class="grid grid2">
+          ${radioSimple("device","iOS Safari","iOS Safari", state.device)}
+          ${radioSimple("device","Android Chrome","Android Chrome", state.device)}
+          ${radioSimple("device","Desktop","Desktop", state.device)}
+          ${radioSimple("device","Other","Other", state.device)}
+        </div>
+      `);
+    }
+
+    function renderFlagship() {
+      mount(`
+        <div class="title">Which Story Should You Get First?</div>
+        <p class="desc">This is how we decide what to spotlight in Early Access.</p>
+
+        <div class="grid">
+          ${radioCard("flagship","Code Blue","Code Blue","High-stakes medical decisions. No undo button.", state.flagship_first)}
+          ${radioCard("flagship","World Of Lorecraft","World Of Lorecraft","Classic fantasy with consequence and replay.", state.flagship_first)}
+          ${radioCard("flagship","Wastelands","Wastelands","Survival, scarcity, and hard choices.", state.flagship_first)}
+        </div>
+      `);
+    }
+
+    function renderFreeform() {
+      mount(`
+        <div class="title">Your One Best Insight</div>
+        <p class="desc">One honest paragraph beats 100 shallow answers.</p>
+
+        <label>What do you wish CYOA / RPG story apps did better?</label>
+        <textarea id="feedback" placeholder="Consequences that carry over, earned endings, better UI, faster pacing, deeper branching...">${escapeHtml(state.feedback)}</textarea>
+
+        <div class="fineprint">Tip: If you want VerseCraft to feel intense, tell us what “intense” means to you.</div>
+      `);
+    }
+
+    function renderSubmit() {
+      mount(`
+        <div class="title">Ready To Submit</div>
+        <p class="desc">Submit your application. We’ll send Early Access details to your email.</p>
+
+        <div class="msg">
+          <b>Review</b><br/>
+          Email: <span class="mono">${escapeHtml(state.email)}</span><br/>
+          Role: <span class="mono">${escapeHtml(state.role || "(not set)")}</span><br/>
+          Genres: <span class="mono">${escapeHtml((state.genres || []).join(", ") || "(none)")}</span><br/>
+          Intensity: <span class="mono">${escapeHtml(state.intensity || "(not set)")}</span><br/>
+          Session: <span class="mono">${escapeHtml(state.session || "(not set)")}</span><br/>
+          Device: <span class="mono">${escapeHtml(state.device || "(not set)")}</span><br/>
+          First story: <span class="mono">${escapeHtml(state.flagship_first || "(not set)")}</span><br/>
+        </div>
+
+        <div class="btnrow" style="margin-top:12px">
+          <button class="primary" id="submitBtn">Submit Application</button>
+        </div>
+
+        <div class="fineprint">
+          If Submit does nothing: your entry IDs are still placeholders. Patch the entry.########## values in index.html.
+        </div>
+      `);
+    }
+
+    function radioCard(name, value, title, subtitle, current) {
+      const checked = current === value ? "checked" : "";
+      const id = `${name}_${slug(value)}`;
+      return `
+        <label class="choice" for="${id}">
+          <input id="${id}" type="radio" name="${name}" value="${escapeHtml(value)}" ${checked} />
+          <div>
+            <b>${escapeHtml(title)}</b>
+            <span>${escapeHtml(subtitle)}</span>
+          </div>
+        </label>
+      `;
+    }
+
+    function checkCard(name, value, title, arr) {
+      const checked = (arr || []).includes(value) ? "checked" : "";
+      const id = `${name}_${slug(value)}`;
+      return `
+        <label class="choice" for="${id}">
+          <input id="${id}" type="checkbox" name="${name}" value="${escapeHtml(value)}" ${checked} />
+          <div><b>${escapeHtml(title)}</b></div>
+        </label>
+      `;
+    }
+
+    function radioSimple(name, value, title, current) {
+      const checked = current === value ? "checked" : "";
+      const id = `${name}_${slug(value)}`;
+      return `
+        <label class="choice" for="${id}">
+          <input id="${id}" type="radio" name="${name}" value="${escapeHtml(value)}" ${checked} />
+          <div><b>${escapeHtml(title)}</b></div>
+        </label>
+      `;
+    }
+
+    function escapeHtml(s) {
+      return String(s ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function slug(s){
+      return String(s || "").toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_+|_+$/g,"");
+    }
+
+    function wireStep() {
+      if (step === 1) {
+        const email = $("email");
+        const consent = $("consent");
+        email.addEventListener("input", () => { state.email = email.value; saveDraft(); });
+        consent.addEventListener("change", () => { state.consent = consent.checked; saveDraft(); });
+      }
+
+      if (step === 2) wireChoiceRadios("role", (v) => { state.role = v; saveDraft(); });
+
+      if (step === 3) {
+        wireChoiceChecks("genres", (vals) => { state.genres = vals; saveDraft(); });
+        wireChoiceRadios("intensity", (v) => { state.intensity = v; saveDraft(); });
+        wireChoiceRadios("session", (v) => { state.session = v; saveDraft(); });
+      }
+
+      if (step === 4) wireChoiceRadios("device", (v) => { state.device = v; saveDraft(); });
+
+      if (step === 5) wireChoiceRadios("flagship", (v) => { state.flagship_first = v; saveDraft(); });
+
+      if (step === 6) {
+        const feedback = $("feedback");
+        feedback.addEventListener("input", () => { state.feedback = feedback.value; saveDraft(); });
+      }
+
+      if (step === 7) {
+        const btn = document.getElementById("submitBtn");
+        btn.addEventListener("click", submitToGoogleForm);
+      }
+    }
+
+    function validateStep() {
+      if (step === 0) return true;
+
+      if (step === 1) {
+        if (!validEmail(state.email)) { showMsg("bad", "Enter a valid email address."); return false; }
+        if (!state.consent) { showMsg("bad", "Consent is required to join Early Access."); return false; }
+      }
+
+      if (step === 2 && !state.role) { showMsg("bad", "Pick a role so we can route you correctly."); return false; }
+
+      if (step === 3) {
+        if (!state.intensity) { showMsg("bad", "Pick an intensity level."); return false; }
+        if (!state.session) { showMsg("bad", "Pick a session length."); return false; }
+      }
+
+      if (step === 4 && !state.device) { showMsg("bad", "Pick your primary device."); return false; }
+
+      if (step === 5 && !state.flagship_first) { showMsg("bad", "Pick which story you want first."); return false; }
+
+      if (step === 6) {
+        const fb = String(state.feedback || "").trim();
+        if (fb.length < 10) { showMsg("bad", "Give us at least a sentence. This is the good stuff."); return false; }
+      }
+
+      return true;
+    }
+
+    function userAgent() {
+      try { return navigator.userAgent || ""; } catch (_) { return ""; }
+    }
+
+    function setHidden(nameId, value) {
+      const el = document.getElementById(nameId);
+      if (el) el.value = String(value ?? "");
+    }
+
+    function submitToGoogleForm() {
+      showMsg("", "");
+
+      // quick entry-id sanity check
+      const hiddenInputs = document.querySelectorAll("#gform input[name^='entry.']");
+      const anyPlaceholder = Array.from(hiddenInputs).some(inp => inp.name.includes("111111") || inp.name.includes("222222") || inp.name.includes("999999"));
+      if (anyPlaceholder) {
+        showMsg("warn", "Entry IDs are still placeholders. Patch the entry.########## values in index.html using your Google Form prefilled link.");
+        return;
+      }
+
+      if (!validateStep()) return;
+
+      // Populate hidden fields
+      setHidden("f_email", String(state.email || "").trim().toLowerCase());
+      setHidden("f_consent", state.consent ? "Yes" : "No"); // matches your Google Form option text
+      setHidden("f_role", state.role);
+      setHidden("f_genres", (state.genres || []).join(", "));
+      setHidden("f_intensity", state.intensity);
+      setHidden("f_session", state.session);
+      setHidden("f_device", state.device);
+      setHidden("f_flagship_first", state.flagship_first);
+      setHidden("f_feedback", String(state.feedback || "").trim());
+      setHidden("f_ua", userAgent());
+      setHidden("f_submitted_at", new Date().toISOString());
+
+      const form = document.getElementById("gform");
+      form.action = GOOGLE_FORM_ACTION_URL;
+
+      const btn = document.getElementById("submitBtn");
+      btn.disabled = true;
+      btn.textContent = "Submitting...";
+
+      // Submit to hidden iframe (avoids CORS)
+      form.submit();
+
+      // Can't reliably detect success cross-domain; assume after brief delay
+      setTimeout(() => {
+        clearDraft();
+        showMsg("ok", "Submitted. You’re in. Watch your inbox.");
+        btn.textContent = "Submitted";
+      }, 900);
+    }
+
+    // NAV
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      showMsg("", "");
+      const ok = validateStep();
+      if (!ok) return;
+      if (step < steps.length - 1) { step++; steps[step](); }
+    });
+
+    document.getElementById("backBtn").addEventListener("click", () => {
+      showMsg("", "");
+      if (step > 0) { step--; steps[step](); }
+    });
+
+    document.getElementById("resetBtn").addEventListener("click", () => { clearDraft(); location.reload(); });
+
+    // Boot
+    steps[step]();
+    setProgress();
+  </script>
+</body>
+</html>
